@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link href="./Confg.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Projeto-PIE</title>
+</head>
+<body style="margin: 0px;">
+    <div class="titulo">
+        <h1>Bem-vindo ao Projeto-PIE</h1>
+        <h2>Vamos te ajudar a calcular o valor da sua obra</h2>
+    </div>
+
+    <nav>
+        <a href="#Alvenaria">Alvenaria</a>
+        <a href="#Cobertura">Cobertura</a>
+        <a href="#Acabamento">Acabamento</a>
+    </nav>
+    
+    <form>
+    <div class="m"><label for="area">Digite a área de construção em M²:</label>
+    <input type="number" id="area" placeholder="Digite em M²"></div>
+
+    <div class="m"><label for="tipoconstrucao">Qual o tipo da construção:</label>
+    <select id="tipoconstrucao">
+        <option value="Residencial">residencial</option>
+        <option value="Comercial">comercial</option>
+    </select></div>
+    </form>
+      
+    <section id="Alvenaria">
+        <h2>Alvenaria</h2>
+        <p>Selecione o material:</p>
+        <br>
+        <button id="tijolo" onclick="toggleSelection(this)"><img src="https://www.caculacentermat.com.br/upload/product/Zx1N08Mb1VoLj5NAq4jFqFLh7egxrMttzShBKovG.jpeg"><p>Tijolo</p></button>
+        <button id="cimento"onclick="selecionarBotoes()"><img src="https://www.lojascoqueiro.com.br/anexo/imagem-destaque?imagem=17260"><p>Cimento</p></button>
+        <button id="areia"onclick="selecionarBotoes()"><img src="https://amgestoroutput.s3.amazonaws.com/jcmateriais/img_produtos/1080-08384116.jpg"><p>Areia</p></button>
+        <button id="cano"onclick="toggleSelection(this)"><img src="https://dcdn.mitiendanube.com/stores/003/317/653/products/tubo-de-agua51-d520df5b3c0366416016887532659483-1024-1024.png"><p>Cano PVC</p></button>
+
+    </section>
+    
+    <div class="centraliza-result">
+        <h2 class="result-visao" id="result"></h2>
+    </div>
+    
+    
+
+    <div class="centraliza-button">
+        <button class="calcular-button custom-btn btn-9" type="button" onclick="total()"><h2>Calcular</h2></button>
+    </div>
+
+
+  
+    <script>
+        function toggleSelection(button) {
+            button.classList.toggle("selected");
+        }
+    </script>
+    
+    <script>
+        function total() {
+            const area = document.getElementById('area').value;
+            const tipoconstrucao = document.getElementById('tipoconstrucao').value;
+            const tijoloSelecionado = document.getElementById('tijolo').classList.contains('selected');
+            const cimentoSelecionado = document.getElementById('cimento').classList.contains('selected');
+            const canoSelecionado = document.getElementById('cano').classList.contains('selected');
+
+            let costPerSquareMeter;
+
+            if (tipoconstrucao === 'Residencial') {
+                costPerSquareMeter = 1000;
+            } else if (tipoconstrucao === 'Comercial') {
+                costPerSquareMeter = 1200;
+            } else {
+                costPerSquareMeter = 0;
+            }
+
+            const totalCostConstru = area * costPerSquareMeter;
+            let totalCost = totalCostConstru;
+
+            // Verifica se o tijolo foi selecionado para adicionar o custo
+            if (tijoloSelecionado) {
+                const tijometro = area * 40; // Exemplo: custo do tijolo por m²
+                totalCost += tijometro;
+            }
+            
+            if (cimentoSelecionado) {
+                const cimemassa = 0.015 * area;
+                const cimemetro = (cimemassa * 25) / 100;
+                const cimelitros = cimemetro * 1000;
+                const cimepreco = cimelitros / 38;
+                const cimetotal = cimepreco * 35;
+                totalCost += cimetotal;
+            }
+            
+            if (canoSelecionado) {
+                const canometro = 0.5 * area
+                const canopreco = canometro * 40
+                totalCost += canopreco
+            }
+            
+            document.getElementById('result').innerText = `O custo total estimado é: R$ ${totalCost.toFixed(2)}`;
+        }
+    </script>
+    
+    <script>
+        function selecionarBotoes() {
+            const cimento = document.getElementById('cimento');
+            cimento.classList.toggle('selected');
+            const areia = document.getElementById('areia');
+            areia.classList.toggle('selected'); }
+    </script>
+    <script>
+        function selecionarBotoes() {
+            const areia = document.getElementById('areia');
+            areia.classList.toggle('selected');
+            const cimento = document.getElementById('cimento');
+            cimento.classList.toggle('selected'); }
+    </script>
+          
+</body>
+</html>
