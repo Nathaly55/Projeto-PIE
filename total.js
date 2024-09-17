@@ -4,6 +4,7 @@ function total() {
     const tijoloSelecionado = document.getElementById('tijolo').classList.contains('selected');
     const cimentoSelecionado = document.getElementById('cimento').classList.contains('selected');
     const canoSelecionado = document.getElementById('cano').classList.contains('selected');
+    const argamassaSelecionado = document.getElementById('argamassa').classList.contains('selected');
 
     let costPerSquareMeter;
 
@@ -20,8 +21,9 @@ function total() {
 
 
     if (tijoloSelecionado) {
-        const tijometro = area * 40;
-        totalCost += tijometro;
+        const tijolometro = area * 40;
+        const tijolototal = tijolometro * 0.70;
+        totalCost += tijolototal;
     }
 
     if (cimentoSelecionado) {
@@ -37,6 +39,12 @@ function total() {
         const canometro = 0.5 * area;
         const canopreco = canometro * 40;
         totalCost += canopreco;
+    }
+
+    if (argamassaSelecionado) {
+        const argametro = area / 4;
+        const argatotal = argametro * 33.12;
+        totalCost += argatotal;
     }
 
     document.getElementById('result').innerText = `O custo total estimado é: R$ ${totalCost.toFixed(2)}`;
